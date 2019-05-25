@@ -13,7 +13,9 @@ public class GuessNumber {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Zagraj ze mna! Zgadnij liczbę w zakresie od 1 do 100!: ");
 
-        int check = 0;
+        int check;
+        int count = 0;
+
         while (true) {
             while (!scanner.hasNextInt()) {
                 scanner.nextLine();
@@ -23,12 +25,15 @@ public class GuessNumber {
 
             if (check < guess) {
                 System.out.print("Daj więcej: ");
+                count++;
 
             } else if (check > guess) {
                 System.out.print("Daj mniej!: ");
+                count++;
 
             } else {
-                System.out.println("Brawo! Zgadłeś!");
+                count++;
+                System.out.println("Brawo! Zgadłeś w " + count + " ruchach!");
                 break;
             }
         }
