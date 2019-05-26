@@ -1,63 +1,60 @@
 package Brelok.workshops;
 
+import java.sql.SQLOutput;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 public class LottoGame {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        int [] userNumber = new int[6];
-        int endGame;
+            int endGame;
+            do {
+                System.out.println("Zagrajmy w Lotto!");
+                int [] userNumber = getUniqueInt(6,1, 49);
 
-        System.out.println("Zagrajmy w Lotto! Podaj liczby w zakresie 1 - 49.");
-        do {
-            for (int i = 0; i < userNumber.length; i++) {
-                int proposal = 0;
+                System.out.println(result(userNumber, computerNumbers()));
 
-                System.out.print("Podaj " + (i + 1) + " liczbę: ");
-                try{
-                    while (!scanner.hasNextInt()) {
-                        scanner.nextLine();
-                        System.out.print("To nie jest liczba. Podaj " + (i + 1) + " liczbę z zakresu 1 - 49: ");
-                    }
-                    proposal = scanner.nextInt();
-                    scanner.nextLine();
-                } catch (InputMismatchException e1) {};
+                System.out.print("Chcesz zagrać raz jeszcze? Wciśnij 1 dla TAK, 0 aby zakończyć: \n");
 
-                try{
-                    while (proposal  <= 0 || proposal >= 50) {
-                        System.out.print("Zbyt duży zakres. Podaj " + (i + 1) + " liczbę z zakresu 1 - 49: ");
-                        proposal = scanner.nextInt();
-                        scanner.nextLine();
-                    }
-                } catch (InputMismatchException e2) {};
-
-                if (Arrays.binarySearch(userNumber, proposal) >= 0 ) {
-                    System.out.print("Już jest taka liczba. Podaj inną: ");
-                    proposal = scanner.nextInt();
-                    scanner.nextLine();
-                }
-                userNumber[0] = proposal;
-                Arrays.sort(userNumber);
-            }
-
-            System.out.println("Oto Twoje liczby: " + Arrays.toString(userNumber));
-            int[] computerNumber = computerNumbers();
-
-            System.out.println(result(userNumber, computerNumber));
-            System.out.print("Chcesz zagrać raz jeszcze? Wciśnij 1 dla TAK, 0 aby zakończyć: \n");
-
-            Scanner end = new Scanner(System.in);
+                Scanner end = new Scanner(System.in);
             while (!end.hasNextInt()) {
                 end.nextLine();
                 System.out.print("Wciśnij 1 dla TAK, 0 aby zakończyć: \n");
             }
-            endGame = end.nextInt();
-
-        } while (endGame == 1);
+                endGame = end.nextInt();
+            } while (endGame == 1);
     }
 
-    static int [] computerNumbers (){
+    public static int[] getUniqueInt (int count, int lowerBound, int upperBound){
+        int [] uniqueInt = new int[count];
+        Arrays.fill(uniqueInt,lowerBound - 1);
+        int counter = 0;
+
+        do {
+            Scanner scanner = new Scanner(System.in);
+            System.out.printf("Podaj %d liczbę: ", counter + 1);
+            while(!scanner.hasNextInt()){
+                String badInput = scanner.nextLine();
+                System.out.printf("\"%s\" nie jest liczbą! Podaj poprawną liczbe : ", badInput);
+            }
+            int proposal = scanner.nextInt();
+            if (proposal < lowerBound || proposal > upperBound) {
+                System.out.printf("Podaj liczbę z zakresu od %d do %d ", lowerBound, upperBound);
+                continue;
+            }
+            if (Arrays.binarySearch(uniqueInt, proposal) >=0) {
+                System.out.printf("%d już została wybrana. ", proposal);
+                continue;
+            }
+            uniqueInt[0] = proposal;
+            Arrays.sort(uniqueInt);
+            counter++;
+            }
+                while (counter < count);
+                System.out.println("Oto Twoje liczby: " + Arrays.toString(uniqueInt));
+                return uniqueInt;
+    }
+
+    static int [] computerNumbers (){//shuffle computer numbers
         Integer [] integers = new Integer[49];
         for (int i = 0; i < integers.length; i++) {
             integers[i] = i + 1;
@@ -81,7 +78,7 @@ public class LottoGame {
         return computerNumber;
     }
 
-    static String result (int [] userNumber, int [] computerNumber){
+    static String result (int [] userNumber, int [] computerNumber){//equals user number with computer number
         int count = 0;
         for (int i = 0; i <userNumber.length; i++) {
             for (int j = 0; j < computerNumber.length; j++) {
