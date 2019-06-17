@@ -15,7 +15,7 @@ public class ProgramGuessYourNumber {
 
         System.out.println("Pomyśl liczbę od 0 do 1 000 a ja ją zgadnę w max 10 próbach;");
         try {
-            TimeUnit.SECONDS.sleep(2);
+            TimeUnit.SECONDS.sleep(4);
         }   catch (InterruptedException e) {} //sposóp na zatrzymanie algorytmu na określony czas
 
         do {
@@ -43,7 +43,7 @@ public class ProgramGuessYourNumber {
                 System.out.println("\nWygrałem! Zgadłem w " + count + " ruchach!");
 
             } else if (computerGuessFinally == 0) { //if 0 ask is number is too much. 1 to YES.
-                System.out.print("Za dużo? Wybierz 1 dla TAK, 0 dla NIE: ");
+                System.out.print("Mniej? Wybierz 1 dla TAK, 0 dla NIE: ");
                 Scanner tooMuch = new Scanner(System.in);
                 int tooMuchNumber = 0;
                 tooMuchNumber = tooMuch.nextInt();
@@ -53,7 +53,7 @@ public class ProgramGuessYourNumber {
                      count++;
 
                  } if (tooMuchNumber == 0) {// if 0 ask is number is not enough, 1 to YES
-                    System.out.print("Za mało? Wybierz 1 dla TAK, 0 dla NIE: ");
+                    System.out.print("Więcej? Wybierz 1 dla TAK, 0 dla NIE: ");
                     Scanner notEnough = new Scanner(System.in);
                     int notEnoughNumber = notEnough.nextInt();
 
