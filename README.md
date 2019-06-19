@@ -5,4 +5,5 @@ This is my first repository in Java. In this repository you will find some proje
 **Guess Computer Number** - in how many counts you will guess computer's number?\
 **Lotto Game** - write 6 number and check if you have lucky :)\
 **Computer Guess Your Number** - computer always guess your number in max 10 count ;)\
-**Throw Cube Calculator** - very useful to RPG's board games. 
+**Throw Cube Calculator** - very useful to RPG's board games.\
+**Popular Words in Headlines** - shows you the most popular words in headlines in web portal
