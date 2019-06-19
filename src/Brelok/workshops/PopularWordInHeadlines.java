@@ -49,6 +49,8 @@ public class PopularWordInHeadlines {
         excludedWords.add("które");
         excludedWords.add("jest");
         excludedWords.add("tego");
+        excludedWords.add("tylko");
+        excludedWords.add("przed");
 
         return excludedWords;
     }
